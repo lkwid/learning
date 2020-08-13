@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+  <div id="app">
+    <h1 v-once>{{ title }}</h1>
+    <p>{{ sayHello() }} - <a v-bind:href="link">Reddit</a></p>
+    <hr>
+    <p v-html="literalLink"></p>
+  </div>
+<body>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        title: 'Hello World !',
+        link: 'http://reddit.com',
+        literalLink: '<a href="http://feedly.com">Feedly</a>'
+      },
+      methods: {
+        sayHello() {
+          this.title = 'Hello there'
+          return 'Hello there'
+        },
+        printTitle() {
+          return this.title;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

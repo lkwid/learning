@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Rendering List</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(ingredient, index) in ingredients">{{ ingredient }} ({{ index }})</li>
+    </ul>
+  <hr>
+  <template v-for="(ingredient, index) in ingredients">
+    <h2>{{ ingredient }}</h2>
+    <p>{{ index }}</p>
+  </template>
+  <hr>
+  <ul>
+    <li v-for="person in people">
+      <div v-for="(value, key, index) in person">{{ key }}: {{ value }} ({{ index }})</div>
+    </li>
+  </ul>
+  <hr>
+  <span v-for="n in 10">{{ n }} </span>
+</div>
+
+<script>
+  new Vue ({
+    el: '#app',
+    data: {
+      ingredients: ['meat', 'fruit', 'cookies'],
+      people: [
+        {name: 'Gabi', age: 9, game: 'Minecraft'},
+        {name: 'Marti', age: 6, game: 'Lego Worlds'}
+      ]
+    }
+  })
+</script>
+  
+</body> 
+</html>

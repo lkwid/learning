@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Monster Slayer</title>
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="css/foundation.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <div id="app">
+    <section class="row">
+      <div class="small-6 columns">
+        <h1 class="text-center">YOU</h1>
+        <div class="healthbar">
+          <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"
+            :style="{ width: playerHealth + '%' }">
+            {{ playerHealth }}
+          </div>
+        </div>
+      </div>
+      <div class="small-6 columns">
+        <h1 class="text-center">MONSTER</h1>
+        <div class="healthbar">
+          <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"
+            :style="{ width: monsterHealth + '%' }">
+            {{ monsterHealth }}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="row controls" v-if="!isGameRunning">
+      <div class="small-12 columns">
+        <button id="start-game" @click="startGame">START NEW GAME</button>
+      </div>
+    </section>
+    <section class="row controls" v-else>
+      <div class="small-12 columns">
+        <button id="attack" @click="attack">ATTACK</button>
+        <button id="special-attack" @click="special">SPECIAL ATTACK</button>
+        <button id="heal" @click="heal">HEAL</button>
+        <button id="give-up" @click="isGameRunning = false">GIVE UP</button>
+      </div>
+    </section>
+    <section class="row log" v-if="battleLog.length > 0">
+      <div class="small-12 columns">
+        <ul>
+          <li 
+            v-for="(entry, index) in battleLog"
+            :class="[{'player-turn': index % 2 > 0, 'monster-turn': index % 2 === 0}]"
+            >
+              {{ entry }}
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      playerHealth: 100,
+      monsterHealth: 100,
+      battleLog: [],
+      isGameRunning: false
+    },
+    watch: {
+      playerHealth() {
+        if (this.playerHealth <= 0) {
+          if (confirm("Player slain the evil monster! Try again?")) {
+            this.startGame();
+          } else {
+            this.isGameRunning = false;
+          }
+        }
+      },
+      monsterHealth() {
+        if (this.monsterHealth <= 0) {
+          if (confirm("The force of darkness triumphs again !")) {
+            this.startGame();
+          } else {
+            this.isGameRunning = false;
+          }
+        }
+      }
+    },
+    methods: {
+      startGame() {
+        this.playerHealth = 100;
+        this.monsterHealth = 100;
+        this.battleLog = [];
+        this.isGameRunning = true;
+      },
+      attack() {
+        this.playerAttackRoll(1);
+        this.monsterAttackRoll();
+      },
+      special() {
+        this.playerAttackRoll(3);
+        this.monsterAttackRoll();
+      },
+      heal() {
+        this.playerHealingRoll();
+        this.monsterAttackRoll();
+      },
+      playerAttackRoll(damageMultiplier) {
+        let damage = this.calculateHp(damageMultiplier);
+        this.monsterHealth -= damage;
+        this.battleLog.unshift('PLAYER HITS MONSTER FOR ' + damage + ' DAMAGE')
+      },
+      monsterAttackRoll(type) {
+        let damage = this.calculateHp(2);
+        this.playerHealth -= damage;
+        this.battleLog.unshift('MONSTER HITS PLAYER FOR ' + damage + ' DAMAGE');
+      },
+      playerHealingRoll() {
+        let healing = this.calculateHp(2);
+        this.playerHealth = this.playerHealth + healing > 100 ? 100 : this.playerHealth + healing;
+        this.battleLog.unshift('PLAYER HEALS HIMSELF FOR ' + healing + ' HP');
+      },
+      calculateHp(damageMultiplier) {
+        return Math.floor(Math.random() * 11) * damageMultiplier;
+      }
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Counter</title>
+</head>
+
+<body>
+  <div id="app">
+    <button v-on:click="increase">Count</button>
+    <p>Current count: {{ counter }}</p>
+    <p>{{ counter > 10 ? 'Greater than 10' : 'Smaller than 10' }}</p>
+    <button v-on:click="controlledIncrease(2)">Step count</button>
+    <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop>DEAD SPOT</span></p>
+    <input type="text" v-on:keyup.enter.space="showAlert">
+  </div>
+</body>
+<script>
+  new Vue({
+    el: "#app",
+    data: {
+      counter: 0,
+      x: 0,
+      y: 0
+    }, 
+    methods: {
+      increase() {
+        this.counter++;
+      },
+      controlledIncrease(step) {
+        this.counter += 2;
+      },
+      updateCoordinates(event) {
+        this.x = event.clientX;
+        this.y = event.clientY;
+      },
+      showAlert() {
+        alert("Ahtung! Pozor!")
+      }
+    }
+  })
+</script>
+
+</html>

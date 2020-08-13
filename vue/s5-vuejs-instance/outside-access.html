@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Accessing the Vue Instance from Outside</title>
+</head>
+
+<body>
+  <div id="instance1">
+    <h1>{{ title }}</h1>
+    <button @click="changeTitle" ref="button1">Instance 1</button>
+  </div>
+  <br>
+  <div id="instance2">
+    <button @click="changeTitle">Instance 2</button>
+  </div>
+  <div id="instance3">
+
+  </div>
+
+  <script>
+
+    var data = {
+      title: 'This is the first instance'
+    };
+
+    var vm1 = new Vue({
+      el: '#instance1',
+      data: data,
+      methods: {
+        changeTitle() {
+          this.title = 'Changed from the first instance'
+        }
+      }
+    })
+
+    var vm2 = new Vue({
+      el: '#instance2',
+      methods: {
+        changeTitle() {
+          vm1.title = 'Changed from the second instance'
+        }
+      }
+    })
+
+    var vm3 = new Vue({
+      template: '<h1>Yo!</h3>'
+    })
+
+    vm3.$mount('#instance3');
+
+    setTimeout(() => {
+      vm1.title = 'Changed from JS';
+      vm1.$refs.button1.innerText = 'Instance 1 from #refs'
+    }, 3000);
+
+    setInterval(() => {
+      vm2.changeTitle();
+    }, 6000);
+
+    console.log(vm1.$data === data);
+
+  </script>
+</body>
+
+</html>

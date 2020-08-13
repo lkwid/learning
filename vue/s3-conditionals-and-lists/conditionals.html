@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditionals</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <p v-if="show">Now you see me <span>!!!</span></p>
+    <p v-else>Now you don't</p>
+    <template v-if="show">
+      <h2>Important announcement</h2>
+      <p>Elements wrapped inside conditional-controlled will also be affected.</p>
+    </template>
+    <p v-show="show">Instead of detaching element, v-show only hides it.</p>
+    <button @click="show = !show">Switch</button>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        show: true
+      }
+    })
+  </script>
+</body>
+
+</html>

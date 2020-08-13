@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Computed Properties</title>
+</head>
+
+<body>
+  <div id="app">
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <button v-on:click="secondCounter++">Second Increase</button>
+    <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+    <p>Result: {{ computedResult }} | {{ methodResult() }} </p>
+  </div>
+</body>
+<script>
+  new Vue({
+    el:"#app",
+    data: {
+      counter: 0,
+      secondCounter: 0
+    },
+    computed: {
+      computedResult() {
+        console.log('Computed');
+        return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+      }
+    }, 
+    watch: {
+      counter: function(value) {
+        setTimeout(() => {
+            this.counter = 0;
+          }, 3000
+        )
+      }
+    },
+    methods: {
+      methodResult() {
+        console.log('Method');
+        return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+      }
+    }
+  })
+</script>
+
+</html>

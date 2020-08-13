@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Name</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+  <div id="app">
+    <input type="text" v-model="name">
+    <p>{{ name }}</p>
+  </div>
+<body>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        name: ''
+      }
+    })
+  </script>
+</body>
+
+</html>

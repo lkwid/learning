@@ -1,0 +1,106 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+<div id="exercise">
+  <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+  <div>
+    <button @click="startEffect">Start Effect</button>
+    <div id="effect" :class="state ? 'highlight' : 'shrink'"></div>
+  </div>
+  <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+  <div :class="['effect', 'green', 'wide', 'tall']">I got no class :(</div>
+  <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+  <div>
+    <input type="text" v-model="userChoice">
+    <div id="effect" :class='userChoice'></div>
+  </div>
+  <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+  <div>
+    <input type="text" v-model='userChoice'>
+    <input type="text" @input="changeActivationState">
+    <div id="effect" :class="[userChoice, {wide: isActivated}]"></div>
+  </div>
+  <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+  <div>
+    <input type="text" v-model='userStyle'>
+    <div id="effect" :style="{backgroundColor: userStyle}"></div>
+  </div>
+  <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+  <div>
+    <button @click="startProgress">Start Progress</button>
+    <div :style="progressBar"></div>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#exercise',
+    data: {
+      state: true,
+      userChoice: '',
+      isActivated: false,
+      userStyle: '',
+      width: 0
+    },
+    computed: {
+      progressBar() {
+        return {
+          backgroundColor: 'green',
+          border: '1px solid black',
+          height: '20px',
+          width: this.width + 'px'
+        }
+      }
+    },
+    methods: {
+      startEffect() {
+        setInterval(() => {
+          this.state = !this.state;
+        }, 2000);
+      },
+      changeActivationState(event) {
+        this.isActivated = event.target.value === 'true';
+      },
+      startProgress() {
+        setInterval(() => {
+          this.width < 400 ? this.width += 20 : this.width;
+        }, 1000);
+      }
+    }
+  })
+</script>
+
+<style>
+  #effect {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+  }
+
+  #progressBar {
+    width: 800px;
+    height: 20px;
+    
+  }
+
+  .highlight {
+    background-color: red;
+    width: 200px !important;
+  }
+
+  .shrink {
+    background-color: gray;
+    width: 50px !important;
+  }
+
+  .green {
+    background-color: green;
+  }
+
+  .wide {
+    width: 150px !important;
+  }
+
+  .tall {
+    height: 150px !important;
+  }
+</style>
