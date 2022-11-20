@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.ConnectionFactory"/>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.AMQP.Connection"/>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.Channel"/>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.Connection"/>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.DefaultConsumer"/>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.Envelope"/>
+    <fullyQualifiedTypeName name="com.rabbitmq.client.AMQP"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+</qualifiedTypeNameHistroy>

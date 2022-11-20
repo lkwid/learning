@@ -1,0 +1,7 @@
+INDEX VERSION 1.131+/home/lkwid/Projects/java/rabbitmq/.metadata/.plugins/org.eclipse.jdt.core
+658371011.index
+1865797976.index
+2922951058.index
+1958976675.index
+2314651727.index
+2011807718.index
